@@ -3,7 +3,7 @@
     "category": "Metadata",
     "guid": "fb7580cf-576d-4991-8e56-0b4520c111d3",
     "name": "ThePornDB",
-    "description": "This metadata provider helps fill Jellyfin/Emby with information for your adult videos by pulling from the ThePornDB.  \n  \nUniversal Repo:  \nGenerated: 02:30 UTC  \nSource: https://raw.githubusercontent.com/ThePornDatabase/Jellyfin.Plugin.ThePornDB/main/manifest.json  \nGithub: https://github.com/ThePornDatabase/Jellyfin.Plugin.ThePornDB",
+    "description": "This metadata provider helps fill Jellyfin/Emby with information for your adult videos by pulling from the ThePornDB.  \n  \nUniversal Repo:  \nGenerated: 02:31 UTC  \nSource: https://raw.githubusercontent.com/ThePornDatabase/Jellyfin.Plugin.ThePornDB/main/manifest.json  \nGithub: https://github.com/ThePornDatabase/Jellyfin.Plugin.ThePornDB",
     "owner": "DirtyRacer",
     "overview": "Manage Your Adult Videos in Jellyfin/Emby",
     "imageUrl": "https://raw.githubusercontent.com/0belous/universal-plugin-repo/refs/heads/main/images/ThePornDB.png",
@@ -110,7 +110,7 @@
     "category": "Metadata",
     "guid": "57b8ef5d-8835-436d-9514-a709ee25faf2",
     "name": "Stash",
-    "description": "Universal Repo:  \nGenerated: 02:30 UTC  \nSource: https://raw.githubusercontent.com/DirtyRacer1337/Jellyfin.Plugin.Stash/main/manifest.json  \nGithub: https://github.com/DirtyRacer1337/Jellyfin.Plugin.Stash",
+    "description": "Universal Repo:  \nGenerated: 02:31 UTC  \nSource: https://raw.githubusercontent.com/DirtyRacer1337/Jellyfin.Plugin.Stash/main/manifest.json  \nGithub: https://github.com/DirtyRacer1337/Jellyfin.Plugin.Stash",
     "owner": "DirtyRacer",
     "overview": "",
     "versions": [
@@ -143,7 +143,7 @@
   {
     "guid": "01cc53ec-c415-4108-bbd4-a684a9801a32",
     "name": "MetaTube",
-    "description": "MetaTube Plugin for Jellyfin/Emby.  \n  \nUniversal Repo:  \nGenerated: 02:30 UTC  \nSource: https://raw.githubusercontent.com/metatube-community/jellyfin-plugin-metatube/dist/manifest.json  \nGithub: https://github.com/metatube-community/jellyfin-plugin-metatube",
+    "description": "MetaTube Plugin for Jellyfin/Emby.  \n  \nUniversal Repo:  \nGenerated: 02:31 UTC  \nSource: https://raw.githubusercontent.com/metatube-community/jellyfin-plugin-metatube/dist/manifest.json  \nGithub: https://github.com/metatube-community/jellyfin-plugin-metatube",
     "overview": "MetaTube Plugin for Jellyfin/Emby.",
     "owner": "MetaTube",
     "category": "Metadata",

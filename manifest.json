@@ -742,12 +742,12 @@
     "category": "Subtitles",
     "versions": [
       {
-        "version": "3.11.3.0",
+        "version": "3.12.1.0",
         "changelog": "See https://github.com/GeiserX/whisper-subs/releases",
         "targetAbi": "10.11.0.0",
-        "sourceUrl": "https://github.com/GeiserX/whisper-subs/releases/download/v3.11.3.0/WhisperSubs_3.11.3.0.zip",
-        "checksum": "a502cecde95d7c68a7aac9f863787a2a",
-        "timestamp": "2026-04-23T08:45:35Z"
+        "sourceUrl": "https://github.com/GeiserX/whisper-subs/releases/download/v3.12.1.0/WhisperSubs_3.12.1.0.zip",
+        "checksum": "8d5a1cb1bf503411d433970657066334",
+        "timestamp": "2026-04-28T23:39:24Z"
       }
     ]
   },
@@ -2298,12 +2298,12 @@
     "imageUrl": "https://raw.githubusercontent.com/0belous/universal-plugin-repo/refs/heads/main/images/Meilisearch.svg",
     "versions": [
       {
-        "version": "1.11.1.14",
-        "changelog": "- [4995cf4] fix: keep Meilisearch search state consistent (#116)",
+        "version": "1.11.1.15",
+        "changelog": "- [95f5916] fix: replace DbIndexer with EfCoreIndexer to avoid SQLite readonly error 119",
         "targetAbi": "10.11.7.0",
-        "sourceUrl": "https://github.com/arnesacnussem/jellyfin-plugin-meilisearch/releases/download/1.11.1.14/meilisearch_1.11.1.14.zip",
-        "checksum": "709e1c3ad7cd789cd12c290eda29ab2f",
-        "timestamp": "2026-04-27T15:45:44Z"
+        "sourceUrl": "https://github.com/arnesacnussem/jellyfin-plugin-meilisearch/releases/download/1.11.1.15/meilisearch_1.11.1.15.zip",
+        "checksum": "6494d8016ea91f610a4e58e51c8711f0",
+        "timestamp": "2026-04-28T19:19:12Z"
       },
       {
         "version": "1.11.1.12",
@@ -4184,6 +4184,14 @@
     "imageUrl": "https://raw.githubusercontent.com/0belous/universal-plugin-repo/refs/heads/main/images/JMSFusion.png",
     "versions": [
       {
+        "version": "2.6.4.0",
+        "changelog": "v2.6.4\n\nFixes:\n- Fixed plugin availability detection edge cases using /JMSFusion/ping and /Plugins/JMSFusion/ping endpoints\n- Fixed splash screen triggering outside of home context\n- Fixed MUI header compatibility issues affecting GMMP, notifications, profile, and watchlist buttons\n- Fixed remote GMMP state mismatches and session filtering issues in cast module\n- Fixed command context inconsistencies in cast operations\n- Fixed language sync edge cases and incorrect English fallback behavior (issues #46)\n- Fixed user/admin resolution inconsistencies\n- Fixed edge cases in personal recommendations and parental PIN flows\n\nImprovements:\n- Added Style 1 / Style 2 options for pause overlay with new pauseModul2.css variant\n- Added content logo and modern title layout support to OSD header rating area (MUI header only, v10.11.x experimental / v10.12 unstable)\n- Improved splash screen protection to run only when plugin is accessible\n- Improved slider detail caching with bulk preloading and background warmup support\n- Improved overall MUI header alignment with modern layout system\n\nNotes:\n- Restart Jellyfin after update\n- Hard refresh (Ctrl + F5) may be required after update",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/G-grbz/Jellyfin-MonWUI-Plugin/releases/download/v2.6.4/JMSFusion-2.6.4.0-server.zip",
+        "checksum": "a658d07bc5e5a2bf43dcde9c8add7b3d",
+        "timestamp": "2026-04-28T13:28:52.8539156Z"
+      },
+      {
         "version": "2.6.3.0",
         "changelog": "v2.6.3\n\nFixes:\n- Fixed #44 (\"Just doesn’t work\") issue causing MonWUI to fail due to authorization errors\n- Fixed 401 Unauthorized errors in MonWUI runtime modules\n- Fixed incorrect authorization header handling for Jellyfin API requests\n- Fixed credential/session handling edge cases that could break runtime requests\n\nImprovements:\n- Improved Docker deployment compatibility for mapped external ports\n- Improved runtime authorization and session resolution logic\n\nNotes:\n- Restart Jellyfin after update\n- Hard refresh (Ctrl + F5) may be required after update",
         "targetAbi": "10.11.0.0",
@@ -5668,6 +5676,14 @@
     "category": "Metadata",
     "imageUrl": "https://raw.githubusercontent.com/0belous/universal-plugin-repo/refs/heads/main/images/Ratings.png",
     "versions": [
+      {
+        "version": "1.0.348.0",
+        "changelog": "Review Card Styling, profile tooltip, funny self-rating messages",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/K3ntas/jellyfin-plugin-ratings/releases/download/v1.0.348.0/jellyfin-plugin-ratings_1.0.348.0.zip",
+        "checksum": "0608b425c7c90a6354b1963428542496",
+        "timestamp": "2026-04-28T21:30:00Z"
+      },
       {
         "version": "1.0.347.0",
         "changelog": "User Reviews: Comments on reviews, clickable user avatars open profile",
@@ -7167,6 +7183,22 @@
     "owner": "lstb1t",
     "versions": [
       {
+        "changelog": "## [0.26.14.4] - 2026-04-28\n\n### 🐛 Bug Fixes\n\n- Clear dead person filter\n",
+        "checksum": "2a69da81349997adbd9e56de6f014555",
+        "sourceUrl": "https://github.com/lostb1t/Gelato/releases/download/v0.26.14.4/gelato_0.26.14.4.zip",
+        "targetAbi": "10.11.6.0",
+        "timestamp": "2026-04-28T08:34:18Z",
+        "version": "0.26.14.4"
+      },
+      {
+        "changelog": "## [0.26.14.3] - 2026-04-27\n\n### 🐛 Bug Fixes\n\n- Replace path with stub on playbackinfo to prevent leaking\n",
+        "checksum": "02b4488880685e82e817341776791360",
+        "sourceUrl": "https://github.com/lostb1t/Gelato/releases/download/v0.26.14.3/gelato_0.26.14.3.zip",
+        "targetAbi": "10.11.6.0",
+        "timestamp": "2026-04-27T19:52:46Z",
+        "version": "0.26.14.3"
+      },
+      {
         "changelog": "## [0.26.14.2] - 2026-04-24\n\n### 🐛 Bug Fixes\n\n- Wrong release date year condition\n",
         "checksum": "c9e8b914596f45200024a91b598c0055",
         "sourceUrl": "https://github.com/lostb1t/Gelato/releases/download/v0.26.14.2/gelato_0.26.14.2.zip",
@@ -7389,22 +7421,6 @@
         "targetAbi": "10.11.6.0",
         "timestamp": "2026-03-12T19:22:52Z",
         "version": "0.26.6.6"
-      },
-      {
-        "changelog": "## [0.26.6.5] - 2026-03-05\n\n### 🚜 Refactor\n\n- Catalog import\n",
-        "checksum": "7630458165f0ac7ff87c0b7e128cbe75",
-        "sourceUrl": "https://github.com/lostb1t/Gelato/releases/download/v0.26.6.5/gelato_0.26.6.5.zip",
-        "targetAbi": "10.11.6.0",
-        "timestamp": "2026-03-05T14:50:55Z",
-        "version": "0.26.6.5"
-      },
-      {
-        "changelog": "## [0.26.6.4] - 2026-03-01\n\n### 🐛 Bug Fixes\n\n- Try to catch non standard subtitle language fields\n\n### 🚜 Refactor\n\n- Use imdbid for subtitles with fallback to stremioid\n",
-        "checksum": "3d07e1af2b8ef27a39f154c6a3184f27",
-        "sourceUrl": "https://github.com/lostb1t/Gelato/releases/download/v0.26.6.4/gelato_0.26.6.4.zip",
-        "targetAbi": "10.11.6.0",
-        "timestamp": "2026-03-01T21:00:59Z",
-        "version": "0.26.6.4"
       }
     ]
   },
@@ -11987,7 +12003,7 @@
         "timestamp": "2023-02-26T19:54:34Z"
       }
     ],
-    "imageUrl": "https://github.com/Viperinius/jellyfin-plugin-spotify-import/raw/master/viperinius-plugin-spotifyimport.png"
+    "imageUrl": "https://raw.githubusercontent.com/0belous/universal-plugin-repo/refs/heads/main/images/Spotify Import.png"
   },
   {
     "guid": "A6363EF3-AEB3-4BC1-8408-243AAE4C1B8B",

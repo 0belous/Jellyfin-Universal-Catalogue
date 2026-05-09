@@ -25,29 +25,32 @@ async function getSources(sourceFile){
         return [];
     }
 
-    let mergedData = [];
+    let pluginMap = new Map();
 
-    for(const url of sources){
+    for (const url of sources) {
         try {
             console.log(`Fetching ${url}...`);
-            const response = await fetch(url, {
-                headers: { 'User-Agent': userAgent }
-            });
-
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            }
+            const response = await fetch(url, { headers: { 'User-Agent': userAgent } });
+            if (!response.ok) throw new Error(`Status: ${response.status}`);
             const json = await response.json();
-            json.forEach(p => p._metaSourceUrl = url);
-            mergedData.push(...json);
-            console.log(`    -> Merged ${json.length} plugins.`);
-
+            for (const plugin of json) {
+                const guid = plugin.guid || plugin.Guid;
+                if (!guid) continue;
+                if (pluginMap.has(guid)) {
+                    console.log(`    -> Merging duplicate: ${plugin.name}`);
+                    const existing = pluginMap.get(guid);
+                    const combinedVersions = [...existing.versions, ...plugin.versions];
+                    existing.versions = Array.from(new Map(combinedVersions.map(v => [v.version, v])).values());
+                } else {
+                    plugin._metaSourceUrl = url;
+                    pluginMap.set(guid, plugin);
+                }
+            }
         } catch (error) {
             console.error(`Error processing ${url}: ${error.message}`);
         }
     }
-
-    return mergedData;
+    return Array.from(pluginMap.values());
 }
 
 async function clearImagesFolder() {

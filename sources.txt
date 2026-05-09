@@ -33,7 +33,6 @@ https://raw.githubusercontent.com/Felitendo/jellyfin-plugin-lyrics/master/manife
 https://raw.githubusercontent.com/Fovty/HoverTrailer/master/manifest.json
 https://raw.githubusercontent.com/G-grbz/Jellyfin-MonWUI-Plugin/main/manifest.json
 https://raw.githubusercontent.com/GeiserX/quality-gate/main/manifest.json
-https://raw.githubusercontent.com/GeiserX/smart-covers/main/manifest.json
 https://raw.githubusercontent.com/GrandguyJS/media-upload-plugin/main/manifest.json
 https://raw.githubusercontent.com/hrqmonteiro/jellyfin-plugin-letterboxd-sync/master/manifest.json
 https://raw.githubusercontent.com/iankiller77/MyAnimeSync/main/manifest.json
@@ -42,7 +41,6 @@ https://raw.githubusercontent.com/johnpc/jellyfin-plugin-top-ten/refs/heads/main
 https://raw.githubusercontent.com/jon4hz/jellyfin-plugin-discontinue-watching/main/manifest.json
 https://raw.githubusercontent.com/jon4hz/jellyfin-plugin-jellysleep/main/manifest.json
 https://raw.githubusercontent.com/jyourstone/jellyfin-plugin-manifest/main/manifest.json
-https://raw.githubusercontent.com/jyourstone/jellyfin-plugin-manifest/master/manifest.json
 https://raw.githubusercontent.com/K3ntas/jellyfin-plugin-ratings/main/manifest.json
 https://raw.githubusercontent.com/KeksBombe/jellyfin-plugin-auto-collections/refs/heads/main/manifest.json
 https://raw.githubusercontent.com/lennykean/jellyfin-powertoys/main/manifest.json

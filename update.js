@@ -105,15 +105,41 @@ function findGithubUrl(obj) {
     return null;
 }
 
+function sanitizePlugins(plugins) {
+    return plugins.map(plugin => {
+        const guid = (plugin.guid || plugin.Guid || "").toLowerCase();
+        
+        if (plugin.versions) {
+            plugin.versions.forEach(v => {
+                if (v.dependencies) {
+                    v.dependencies = v.dependencies.filter(depId => depId.toLowerCase() !== guid);
+                }
+                if (!v.targetAbi || v.targetAbi.trim() === "") {
+                    v.targetAbi = "10.11.0.0"; 
+                }
+            });
+            plugin.versions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        }
+        const descProp = ['description', 'Description', 'overview'].find(p => plugin[p]);
+        if (descProp) {
+            plugin[descProp] = plugin[descProp]
+                .replace(/@\[renovate\[bot\]\].*$/gs, "")
+                .replace(/\n\s*\n/g, '\n')
+                .trim();
+        }
+        const { guid: g, name, ...rest } = plugin;
+        return { guid: g, name, ...rest };
+    });
+}
+
 async function processDescriptions(pluginData) {
     try {
         const genTime = new Date().toISOString().substring(11, 16) + ' UTC';
         for (const plugin of pluginData) {
             const repoUrl = findGithubUrl(plugin);
             const sourceUrl = plugin._metaSourceUrl || 'Unknown';
-            delete plugin._metaSourceUrl;
-
             let appendText = `  \n  \nUniversal Repo:  \nGenerated: ${genTime}  \nSource: ${sourceUrl}`;
+            delete plugin._metaSourceUrl;
             if (repoUrl) {
                 appendText += `  \nGithub: ${repoUrl}`;
             }
@@ -167,8 +193,9 @@ async function writeManifest(dataToWrite, outputFile){
 }
 
 async function processList(sourceFile, outputFile) {
-    const plugins = await getSources(sourceFile);
+    let plugins = await getSources(sourceFile);
     if (plugins.length > 0) {
+        plugins = sanitizePlugins(plugins);
         await processDescriptions(plugins);
         await processImages(plugins);
         await writeManifest(plugins, outputFile);

@@ -1,28 +1,13 @@
 # Universal Plugin Repo
 ### Universal plugin repository for Jellyfin Media Server
 
-> [!NOTE]
-> Updated every 24 hours, or whenever a change is pushed to this project
+This is a development branch of UPR.
 
-# Installation
-1. Open Jellyfin dashboard
-2. Navigate to the catalogue settings
-3. Remove all old repositories
-4. Add the universal repository
-```
-https://obelo.us/upr
-```
-5. Never add another repository again!
-
-<details>
-<summary>More plugins</summary>
-  
-You can optionally install the NSFW repository as well
-
-```
-https://obelo.us/uprn
-```
-</details>
+Goals for developmen include:
+- Full migration to the obelo.us domain (opposed to direct linking to github)
+- Reduced git commit spam by serving files directly
+- Faster update times (1 hour, maybe less?)
+- Better compatibility (Jellyfin version user agent forwarding)
 
 # Security
 Most sources come from [awesome-jellyfin](https://github.com/awesome-jellyfin/awesome-jellyfin)

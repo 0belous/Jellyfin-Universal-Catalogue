@@ -1,19 +1,11 @@
 const fs = require('fs/promises');
 const path = require('path');
 const crypto = require('crypto');
-let userAgent = "Jellyfin-Server/10.11.4"; // Required for some repositories
+let userAgent = process.argv[2];
+let regenImages = ['true', '1', 'yes'].includes(String(process.argv[3]).toLowerCase());
 
-const imagesDir = path.join(__dirname, 'images');
+const imagesDir = '../plugins/images';
 const imageBaseUrl = 'https://raw.githubusercontent.com/0belous/universal-plugin-repo/refs/heads/main/images/';
-
-async function getLatestJellyfinVersion() {
-    const response = await fetch('https://api.github.com/repos/jellyfin/jellyfin/releases/latest', {
-        headers: { 'User-Agent': 'Node-Fetch' }
-    });
-    if (!response.ok) throw new Error();
-    const data = await response.json();
-    return data.tag_name.replace('v', '');
-}
 
 async function getSources(sourceFile){
     let sources = [];
@@ -30,7 +22,7 @@ async function getSources(sourceFile){
     for (const url of sources) {
         try {
             console.log(`Fetching ${url}...`);
-            const response = await fetch(url, { headers: { 'User-Agent': userAgent } });
+            const response = await fetch(url, { headers: { 'User-Agent': 'Jellyfin-Server/'+userAgent } });
             if (!response.ok) throw new Error(`Status: ${response.status}`);
             const json = await response.json();
             for (const plugin of json) {
@@ -72,6 +64,15 @@ async function downloadImage(url, filename) {
         return true;
     } catch (err) {
         console.error(`Error downloading image ${url}:`, err.message);
+        return false;
+    }
+}
+
+async function imageExists(filename) {
+    try {
+        await fs.access(path.join(imagesDir, filename));
+        return true;
+    } catch {
         return false;
     }
 }
@@ -169,8 +170,16 @@ async function processImages(pluginData) {
                 pluginId = hashString(plugin.imageUrl);
             }
             const filename = `${pluginId}${ext}`;
-            const success = await downloadImage(plugin.imageUrl, filename);
-            if (success) {
+            const shouldDownload = regenImages || !(await imageExists(filename));
+            if (shouldDownload) {
+                const success = await downloadImage(plugin.imageUrl, filename);
+                if (!success) {
+                    continue;
+                }
+            } else {
+                console.log(`Skipping existing image: ${filename}`);
+            }
+            if (shouldDownload || await imageExists(filename)) {
                 plugin.imageUrl = imageBaseUrl + filename;
                 console.log(`    -> Updated manifest imageUrl for plugin ${pluginId}`);
             }
@@ -203,10 +212,11 @@ async function processList(sourceFile, outputFile) {
 }
 
 async function main() {
-    userAgent = `Jellyfin-Server/${await getLatestJellyfinVersion()}`;
-    await clearImagesFolder();
-    await processList('sources.txt', 'manifest.json');
-    await processList('sourcesnsfw.txt', 'manifestnsfw.json');
+    if(regenImages)await clearImagesFolder();
+    try{await fs.mkdir('../plugins/')}catch(err){}
+    try{await fs.mkdir('../plugins/'+userAgent)}catch(err){}
+    await processList('sources.txt', '../plugins/'+userAgent+'/manifest.json');
+    await processList('sourcesnsfw.txt', '../plugins/'+userAgent+'/manifestnsfw.json');
 }
 
 main();

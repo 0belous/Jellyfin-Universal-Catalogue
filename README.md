@@ -4,7 +4,7 @@ A universal plugin repository for **Jellyfin Media Server**. This project aggreg
 
 ## Table of Contents
 - [Why this repo exists](#why-this-repo-exists)
-- [Repository URLs](#repository-urls)
+- [Manifest URL](#manifest-url)
 - [How installation works](#how-installation-works)
 - [How this project is maintained](#how-this-project-is-maintained)
 - [Project structure](#project-structure)
@@ -14,19 +14,12 @@ A universal plugin repository for **Jellyfin Media Server**. This project aggreg
 ## Why this repo exists
 Managing multiple Jellyfin plugin repositories can get messy fast. This project provides:
 - **one primary catalogue URL** for regular plugins
-- an optional **NSFW catalogue URL**
 - automatic feed updates and duplicate merging
 - a simpler setup flow for self-hosted Jellyfin users
 
-## Repository URLs
-### Main catalogue
+## Manifest URL
 ```text
 https://obelo.us/upr
-```
-
-### Optional NSFW catalogue
-```text
-https://obelo.us/uprn
 ```
 
 ## How installation works
@@ -35,13 +28,12 @@ https://obelo.us/uprn
 3. Remove outdated repository entries if you previously added multiple plugin feeds.
 4. Add the main catalogue URL shown above.
 5. Save the configuration and refresh your available plugins.
-6. Optionally add the NSFW catalogue if you explicitly want that separate feed.
 
 ## How this project is maintained
 The update pipeline is driven by `update.js`.
 
 It does the following:
-- reads source repository lists from `sources.txt` and `sourcesnsfw.txt`
+- reads source repository lists from `sources.txt`
 - fetches upstream plugin JSON feeds
 - merges duplicate plugins by GUID
 - keeps plugin versions grouped cleanly
@@ -54,11 +46,8 @@ It does the following:
 ├── README.md           # Project overview and setup instructions
 ├── update.js           # Aggregation and manifest generation script
 ├── sources.txt         # Upstream plugin feed list
-├── sourcesnsfw.txt     # Optional NSFW feed list
 ├── manifest.json       # Generated main catalogue manifest
-├── manifestnsfw.json   # Generated NSFW catalogue manifest
-├── images/             # Downloaded plugin artwork/assets
-└── package.json        # Node project metadata
+└── images/             # Downloaded plugin artwork/assets
 ```
 
 ## Security notes
@@ -66,14 +55,12 @@ Most upstream sources come from reputable community-maintained Jellyfin plugin r
 
 A few practical notes:
 - this project helps reduce direct exposure to many separate repository endpoints
-- plugin metadata is reviewed before inclusion
+- new sources are reviewed before inclusion
 - installing a plugin still means trusting that plugin's code
 - users should continue to install only plugins they recognize or have reviewed
 
 ## Contributing
 If you want to add a missing plugin source:
 1. update `sources.txt` or `sourcesnsfw.txt`
-2. regenerate the manifests
+2. regenerate the manifests with `node update.js`
 3. open a pull request with the new source and any context maintainers should know
-
-A future enhancement could be a short developer section with the exact command used to run `update.js` and publish refreshed manifests.

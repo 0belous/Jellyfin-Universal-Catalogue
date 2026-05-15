@@ -4,7 +4,6 @@ on:
   pull_request:
     paths:
       - 'sources.txt'
-      - 'sourcesnsfw.txt'
   workflow_dispatch:
 
 jobs:

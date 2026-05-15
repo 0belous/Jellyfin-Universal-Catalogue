@@ -1,35 +1,66 @@
-# Universal Plugin Repo
-### Universal plugin repository for Jellyfin Media Server
+# Jellyfin Universal Catalogue
 
-> [!NOTE]
-> Updated every 24 hours, or whenever a change is pushed to this project
+A universal plugin repository for **Jellyfin Media Server**. This project aggregates plugin feeds, de-duplicates entries, normalizes assets, and publishes a single catalogue URL that is easier for end users to install and maintain.
 
-# Installation
-1. Open Jellyfin dashboard
-2. Navigate to the catalogue settings
-3. Remove all old repositories
-4. Add the universal repository
-```
+## Table of Contents
+- [Why this repo exists](#why-this-repo-exists)
+- [Manifest URL](#manifest-url)
+- [How installation works](#how-installation-works)
+- [How this project is maintained](#how-this-project-is-maintained)
+- [Project structure](#project-structure)
+- [Security notes](#security-notes)
+- [Contributing](#contributing)
+
+## Why this repo exists
+Managing multiple Jellyfin plugin repositories can get messy fast. This project provides:
+- **one primary catalogue URL** for regular plugins
+- automatic feed updates and duplicate merging
+- a simpler setup flow for self-hosted Jellyfin users
+
+## Manifest URL
+```text
 https://obelo.us/upr
 ```
-5. Never add another repository again!
 
-<details>
-<summary>More plugins</summary>
-  
-You can optionally install the NSFW repository as well
+## How installation works
+1. Open the Jellyfin admin dashboard.
+2. Go to the plugin or catalogue repository settings.
+3. Remove outdated repository entries if you previously added multiple plugin feeds.
+4. Add the main catalogue URL shown above.
+5. Save the configuration and refresh your available plugins.
 
+## How this project is maintained
+The update pipeline is driven by `update.js`.
+
+It does the following:
+- reads source repository lists from `sources.txt`
+- fetches upstream plugin JSON feeds
+- merges duplicate plugins by GUID
+- keeps plugin versions grouped cleanly
+- downloads and refreshes image assets
+- outputs normalized manifests for Jellyfin clients
+
+## Project structure
+```text
+.
+├── README.md           # Project overview and setup instructions
+├── update.js           # Aggregation and manifest generation script
+├── sources.txt         # Upstream plugin feed list
+├── manifest.json       # Generated main catalogue manifest
+└── images/             # Downloaded plugin artwork/assets
 ```
-https://obelo.us/uprn
-```
-</details>
 
-# Security
-Most sources come from [awesome-jellyfin](https://github.com/awesome-jellyfin/awesome-jellyfin)
-The remainder are from reputable developers, and each source is reviewed before being added.
-There is minimal risk in having even a known bad repository installed, as this project acts as a proxy between your server and a potentially malicious repository, helping to protect your IP. However, this protection no longer applies once you install a plugin, as the code is not proxied and could contain malware.
+## Security notes
+Most upstream sources come from reputable community-maintained Jellyfin plugin repositories, including entries referenced from [awesome-jellyfin](https://github.com/awesome-jellyfin/awesome-jellyfin).
 
-Make sure you only install plugins you recognise.
+A few practical notes:
+- this project helps reduce direct exposure to many separate repository endpoints
+- new sources are reviewed before inclusion
+- installing a plugin still means trusting that plugin's code
+- users should continue to install only plugins they recognize or have reviewed
 
-# Contribution
-If you find a plugin that is not included, please take a few minutes to add it to sources.txt and create a pull request.
+## Contributing
+If you want to add a missing plugin source:
+1. update `sources.txt` or `sourcesnsfw.txt`
+2. regenerate the manifests with `node update.js`
+3. open a pull request with the new source and any context maintainers should know

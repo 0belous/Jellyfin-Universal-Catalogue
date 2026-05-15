@@ -206,7 +206,6 @@ async function main() {
     userAgent = `Jellyfin-Server/${await getLatestJellyfinVersion()}`;
     await clearImagesFolder();
     await processList('sources.txt', 'manifest.json');
-    await processList('sourcesnsfw.txt', 'manifestnsfw.json');
 }
 
 main();

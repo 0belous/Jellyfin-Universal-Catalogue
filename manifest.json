@@ -1589,6 +1589,22 @@
     "imageUrl": "https://raw.githubusercontent.com/0belous/universal-plugin-repo/refs/heads/main/images/Segment Editor.png",
     "versions": [
       {
+        "version": "1.0.10.0",
+        "changelog": "- See the full changelog at [GitHub](https://github.com/intro-skipper/segment-editor-plugin/blob/master/CHANGELOG.md)",
+        "targetAbi": "10.11.5.0",
+        "sourceUrl": "https://github.com/intro-skipper/segment-editor-plugin/releases/download/v1.0.10.0/segment-editor-plugin-v1.0.10.0.zip",
+        "checksum": "ebe5f4c1c0493c30ede60c714c498049",
+        "timestamp": "2026-05-14T17:23:05Z"
+      },
+      {
+        "version": "1.0.9.0",
+        "changelog": "- See the full changelog at [GitHub](https://github.com/intro-skipper/segment-editor-plugin/blob/master/CHANGELOG.md)",
+        "targetAbi": "10.11.5.0",
+        "sourceUrl": "https://github.com/intro-skipper/segment-editor-plugin/releases/download/v1.0.9.0/segment-editor-plugin-v1.0.9.0.zip",
+        "checksum": "902f92631ee2c00ab0a3f5cc6191a7fd",
+        "timestamp": "2026-05-13T21:54:55Z"
+      },
+      {
         "version": "1.0.8.0",
         "changelog": "- See the full changelog at [GitHub](https://github.com/intro-skipper/segment-editor-plugin/blob/master/CHANGELOG.md)",
         "targetAbi": "10.11.5.0",
@@ -1611,22 +1627,6 @@
         "sourceUrl": "https://github.com/intro-skipper/segment-editor-plugin/releases/download/v1.0.6.0/segment-editor-plugin-v1.0.6.0.zip",
         "checksum": "9d51122a796d37134e8a6ffd5efbd6fe",
         "timestamp": "2026-05-08T20:35:48Z"
-      },
-      {
-        "version": "1.0.5.0",
-        "changelog": "- See the full changelog at [GitHub](https://github.com/intro-skipper/segment-editor-plugin/blob/master/CHANGELOG.md)",
-        "targetAbi": "10.11.5.0",
-        "sourceUrl": "https://github.com/intro-skipper/segment-editor-plugin/releases/download/v1.0.5.0/segment-editor-plugin-v1.0.5.0.zip",
-        "checksum": "7ff8be875d8032461c26bb354e48a7ae",
-        "timestamp": "2026-05-07T15:31:47Z"
-      },
-      {
-        "version": "1.0.4.0",
-        "changelog": "- See the full changelog at [GitHub](https://github.com/intro-skipper/segment-editor-plugin/blob/master/CHANGELOG.md)",
-        "targetAbi": "10.11.5.0",
-        "sourceUrl": "https://github.com/intro-skipper/segment-editor-plugin/releases/download/v1.0.4.0/segment-editor-plugin-v1.0.4.0.zip",
-        "checksum": "5a4c852bce94f4b3cb5cbdd6300e4682",
-        "timestamp": "2026-05-07T05:01:14Z"
       }
     ]
   },
@@ -8729,10 +8729,67 @@
     "name": "NotifySync",
     "category": "UI",
     "description": "NotifySync transforms the Jellyfin interface by adding a native notification bell, inspired by major streaming platforms. Your users instantly see the latest additions — Movies, Series, Music — without ever leaving their current page.\nNotifySync transforme l'interface Jellyfin en ajoutant une cloche de notifications native, inspirée des grandes plateformes de streaming. Vos utilisateurs voient instantanément les derniers ajouts — Films, Séries, Musique — sans quitter leur page.  \n  \nUniversal Repo:  \nGenerated: 02:56 UTC  \nSource: https://raw.githubusercontent.com/peterdu1109/NotifySync/refs/heads/main/repository.json  \nGithub: https://github.com/peterdu1109/NotifySync",
-    "owner": "Peterdu1109 & ElieM",
+    "owner": "ElieM & Peterdu1109",
     "overview": "A Netflix-style notification bell for Jellyfin — see new media without leaving the page.\nUne cloche de notifications style Netflix pour Jellyfin.",
     "supportUrl": "https://github.com/peterdu1109/NotifySync",
+    "imageUrl": "https://raw.githubusercontent.com/0belous/universal-plugin-repo/refs/heads/main/images/NotifySync.svg",
     "versions": [
+      {
+        "version": "5.5.11.2",
+        "changelog": "<a style='color:white;text-decoration:none' href=\"https://github.com/peterdu1109/NotifySync/releases/tag/v5.5.11.2\">📋 <span style='text-decoration:underline'>Release Notes v5.5.11.2</span></a>",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/peterdu1109/NotifySync/releases/download/v5.5.11.2/NotifySync.zip",
+        "checksum": "777EC7C77A26BFAE8C176827BFE6EFB6",
+        "timestamp": "2026-05-14T23:10:00Z"
+      },
+      {
+        "version": "5.5.11.1",
+        "changelog": "<a style='color:white;text-decoration:none' href=\"https://github.com/peterdu1109/NotifySync/releases/tag/v5.5.11.1\">📋 <span style='text-decoration:underline'>Release Notes v5.5.11.1</span></a>",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/peterdu1109/NotifySync/releases/download/v5.5.11.1/NotifySync.zip",
+        "checksum": "8328625989DBFAF4A9617ADBC1830525",
+        "timestamp": "2026-05-14T23:00:00Z"
+      },
+      {
+        "version": "5.5.11.0",
+        "changelog": "<a style='color:white;text-decoration:none' href=\"https://github.com/peterdu1109/NotifySync/releases/tag/v5.5.11.0\">📋 <span style='text-decoration:underline'>Release Notes v5.5.11.0</span></a>",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/peterdu1109/NotifySync/releases/download/v5.5.11.0/NotifySync.zip",
+        "checksum": "4EBC70D101B115FD1F838B8D817EF879",
+        "timestamp": "2026-05-14T22:30:00Z"
+      },
+      {
+        "version": "5.5.10.3",
+        "changelog": "<a style='color:white;text-decoration:none' href=\"https://github.com/peterdu1109/NotifySync/releases/tag/v5.5.10.3\">📋 <span style='text-decoration:underline'>Release Notes v5.5.10.3</span></a>",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/peterdu1109/NotifySync/releases/download/v5.5.10.3/NotifySync.zip",
+        "checksum": "920D604CC4ACF3C3556410A78006E781",
+        "timestamp": "2026-05-14T18:00:00Z"
+      },
+      {
+        "version": "5.5.10.2",
+        "changelog": "<a style='color:white;text-decoration:none' href=\"https://github.com/peterdu1109/NotifySync/releases/tag/v5.5.10.2\">📋 <span style='text-decoration:underline'>Release Notes v5.5.10.2</span></a>",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/peterdu1109/NotifySync/releases/download/v5.5.10.2/NotifySync.zip",
+        "checksum": "29B600E9F1AC0BE8C9FA512A8C8198BC",
+        "timestamp": "2026-05-14T17:00:00Z"
+      },
+      {
+        "version": "5.5.10.1",
+        "changelog": "<a style='color:white;text-decoration:none' href=\"https://github.com/peterdu1109/NotifySync/releases/tag/v5.5.10.1\">📋 <span style='text-decoration:underline'>Release Notes v5.5.10.1</span></a>",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/peterdu1109/NotifySync/releases/download/v5.5.10.1/NotifySync.zip",
+        "checksum": "BB7F5DA15C082D22464194A948339601",
+        "timestamp": "2026-05-14T15:00:00Z"
+      },
+      {
+        "version": "5.5.10.0",
+        "changelog": "<a style='color:white;text-decoration:none' href=\"https://github.com/peterdu1109/NotifySync/releases/tag/v5.5.10.0\">📋 <span style='text-decoration:underline'>Release Notes v5.5.10.0</span></a>",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/peterdu1109/NotifySync/releases/download/v5.5.10.0/NotifySync.zip",
+        "checksum": "E9E29CE217EDD4C1DD2FA07857CDA796",
+        "timestamp": "2026-05-10T15:00:00Z"
+      },
       {
         "version": "5.5.9.4",
         "changelog": "<a style='color:white;text-decoration:none' href=\"https://github.com/peterdu1109/NotifySync/releases/tag/v5.5.9.4\">📋 <span style='text-decoration:underline'>Release Notes v5.5.9.4</span></a>",

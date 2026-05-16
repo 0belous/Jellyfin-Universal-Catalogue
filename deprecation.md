@@ -17,10 +17,8 @@ The new URL brings improvements like:
 - Per-version sources
 - No more commit spam
 
-You can see the current implementation on the development branch: https://github.com/0belous/Jellyfin-Universal-Catalogue/tree/development
-
 ## When
 
-The old GitHub URL has stopped receiving updates effective immediately
+The old GitHub URL has stopped receiving updates
 
-The new obelo.us URL will be redirected soon
+The new obelo.us have been automatically redirected

@@ -89,6 +89,34 @@ function hashString(str) {
     return crypto.createHash('md5').update(str).digest('hex');
 }
 
+function createDummyPlugin() {
+    const timestamp = new Date().toISOString();
+    const targetAbi = '10.1.0.0';
+    const checksum = crypto.randomBytes(16).toString('hex');
+
+    return {
+        guid: crypto.randomUUID ? crypto.randomUUID() : hashString('upr-dummy-' + timestamp),
+        name: '! Deprecation Warning',
+        description: `You have stopped receiving updates. See here for more details: https://github.com/0belous/Jellyfin-Universal-Catalogue/blob/main/deprecation.md`,
+        overview: `Deprecation Warning`,
+        owner: 'Obelous',
+        category: 'Miscellaneous',
+        image: 'upr-main.png',
+        imageUrl: 'https://dl.obelous.dev/public/upr-main.png',
+        _metaSourceUrl: 'internal',
+        versions: [
+            {
+                version: '0.0.0',
+                changelog: 'Placeholder',
+                targetAbi: targetAbi,
+                sourceUrl: 'https://github.com/0belous/Jellyfin-Universal-Catalogue',
+                checksum: checksum,
+                timestamp: timestamp
+            }
+        ]
+    };
+}
+
 function findGithubUrl(obj) {
     if (!obj) return null;
     for (const key in obj) {
@@ -195,6 +223,7 @@ async function writeManifest(dataToWrite, outputFile){
 async function processList(sourceFile, outputFile) {
     let plugins = await getSources(sourceFile);
     if (plugins.length > 0) {
+        plugins.unshift(createDummyPlugin());
         plugins = sanitizePlugins(plugins);
         await processDescriptions(plugins);
         await processImages(plugins);

@@ -1,7 +1,0 @@
-# !      Please keep this file sorted alphabetically (ascending) and clear of duplicates
-# !!     In VS Code you can do this with:
-# !!!    ctrl+shift+p > Delete Duplicate Lines
-# !!!!   ctrl+shift+p > Sort Lines Ascending
-https://raw.githubusercontent.com/ThePornDatabase/Jellyfin.Plugin.ThePornDB/main/manifest.json
-https://raw.githubusercontent.com/DirtyRacer1337/Jellyfin.Plugin.Stash/main/manifest.json
-https://raw.githubusercontent.com/metatube-community/jellyfin-plugin-metatube/dist/manifest.json

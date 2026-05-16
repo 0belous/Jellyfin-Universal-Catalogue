@@ -3,9 +3,11 @@ const path = require('path');
 const crypto = require('crypto');
 let userAgent = process.argv[2];
 let regenImages = ['true', '1', 'yes'].includes(String(process.argv[3]).toLowerCase());
+const agentDirName = userAgent || 'unknown';
 
-const imagesDir = '../plugins/images';
-const imageBaseUrl = 'https://raw.githubusercontent.com/0belous/universal-plugin-repo/refs/heads/main/images/';
+const pluginDir = path.join('./plugins', agentDirName);
+const imageBaseUrl = `https://test.obelous.dev/plugins/${encodeURIComponent(agentDirName)}/`;
+const fallbackImageUrl = 'https://dl.obelous.dev/public/upr-main.png';
 
 async function getSources(sourceFile){
     let sources = [];
@@ -47,8 +49,11 @@ async function getSources(sourceFile){
 
 async function clearImagesFolder() {
     try {
-        await fs.rm(imagesDir, { recursive: true, force: true });
-        await fs.mkdir(imagesDir, { recursive: true });
+        const entries = await fs.readdir(pluginDir, { withFileTypes: true });
+        for (const entry of entries) {
+            if (entry.name === 'manifest.json') continue;
+            await fs.rm(path.join(pluginDir, entry.name), { recursive: true, force: true });
+        }
     } catch (err) {
         console.error('Error clearing images folder:', err);
     }
@@ -60,7 +65,7 @@ async function downloadImage(url, filename) {
         const res = await fetch(url, { headers: { 'User-Agent': userAgent } });
         if (!res.ok) throw new Error(`Failed to fetch image: ${res.status}`);
         const buffer = await res.arrayBuffer();
-        await fs.writeFile(path.join(imagesDir, filename), Buffer.from(buffer));
+        await fs.writeFile(path.join(pluginDir, filename), Buffer.from(buffer));
         return true;
     } catch (err) {
         console.error(`Error downloading image ${url}:`, err.message);
@@ -70,7 +75,7 @@ async function downloadImage(url, filename) {
 
 async function imageExists(filename) {
     try {
-        await fs.access(path.join(imagesDir, filename));
+        await fs.access(path.join(pluginDir, filename));
         return true;
     } catch {
         return false;
@@ -88,6 +93,10 @@ function getPluginId(plugin) {
 
 function hashString(str) {
     return crypto.createHash('md5').update(str).digest('hex');
+}
+
+function sanitizeImageName(name) {
+    return String(name).replace(/\s+/g, '');
 }
 
 function findGithubUrl(obj) {
@@ -163,17 +172,36 @@ async function processDescriptions(pluginData) {
 
 async function processImages(pluginData) {
     for (const plugin of pluginData) {
+        if (!plugin.imageUrl) {
+            plugin.imageUrl = fallbackImageUrl;
+            console.log(`    -> Using fallback imageUrl for plugin ${getPluginId(plugin) || 'unknown'}`);
+            continue;
+        }
+
         if (plugin.imageUrl) {
             const ext = getImageExtension(plugin.imageUrl);
             let pluginId = getPluginId(plugin);
             if (!pluginId) {
                 pluginId = hashString(plugin.imageUrl);
             }
-            const filename = `${pluginId}${ext}`;
+            const legacyFilename = `${pluginId}${ext}`;
+            const filename = `${sanitizeImageName(pluginId)}${ext}`;
             const shouldDownload = regenImages || !(await imageExists(filename));
+
+            if (filename !== legacyFilename && !shouldDownload && await imageExists(legacyFilename)) {
+                try {
+                    await fs.rename(path.join(pluginDir, legacyFilename), path.join(pluginDir, filename));
+                    console.log(`    -> Renamed image asset to remove spaces: ${legacyFilename} -> ${filename}`);
+                } catch (err) {
+                    console.error(`Error renaming image ${legacyFilename}:`, err.message);
+                }
+            }
+
             if (shouldDownload) {
                 const success = await downloadImage(plugin.imageUrl, filename);
                 if (!success) {
+                    plugin.imageUrl = fallbackImageUrl;
+                    console.log(`    -> Using fallback imageUrl for plugin ${pluginId}`);
                     continue;
                 }
             } else {
@@ -212,11 +240,10 @@ async function processList(sourceFile, outputFile) {
 }
 
 async function main() {
+    try{await fs.mkdir('./plugins/')}catch(err){}
+    try{await fs.mkdir(pluginDir, { recursive: true })}catch(err){}
     if(regenImages)await clearImagesFolder();
-    try{await fs.mkdir('../plugins/')}catch(err){}
-    try{await fs.mkdir('../plugins/'+userAgent)}catch(err){}
-    await processList('sources.txt', '../plugins/'+userAgent+'/manifest.json');
-    await processList('sourcesnsfw.txt', '../plugins/'+userAgent+'/manifestnsfw.json');
+    await processList('sources.txt', path.join('./plugins', agentDirName, 'manifest.json'));
 }
 
 main();

@@ -405,6 +405,38 @@ async function writeManifest(manifestJson, outputFile, pluginCount){
 
 async function processList(sourceFile, outputFile) {
     let plugins = await getSources(sourceFile);
+    try {
+        const safeAgent = userAgent || 'unknown';
+        const timestamp = new Date().toISOString();
+        const checksum = hashString('upr-' + (safeAgent || 'unknown'));
+        const targetAbi = '10.11.0.0';
+        const dummy = {
+            guid: crypto.randomUUID ? crypto.randomUUID() : hashString('upr-dummy-' + timestamp),
+            name: '! Universal Plugin Repo',
+            description: `You are using Universal Plugin Repo.`,
+            overview: `Jellyfin Plugin Aggregator`,
+            owner: 'Obelous',
+            category: 'Miscellaneous',
+            image: 'upr-main.png',
+            imageUrl: 'https://dl.obelous.dev/public/upr-main.png',
+            _metaSourceUrl: 'internal',
+            versions: [
+                {
+                    version: '0.0.0',
+                    changelog: 'Placeholder',
+                    targetAbi: targetAbi,
+                    sourceUrl: 'https://github.com/0belous/Jellyfin-Universal-Catalogue',
+                    checksum: checksum,
+                    timestamp: timestamp
+                }
+            ]
+        };
+
+        plugins.unshift(dummy);
+    } catch (err) {
+        console.error('Error creating dummy plugin:', err.message);
+    }
+
     if (plugins.length > 0) {
         plugins = await transformPluginsInWorkers(plugins);
         await processImages(plugins);

@@ -13,7 +13,7 @@ A universal plugin repository for **Jellyfin Media Server**. This project aggreg
 
 ## Why this repo exists
 Managing multiple Jellyfin plugin repositories can get messy fast. This project provides:
-- **one primary catalogue URL** for regular plugins
+- **one primary catalogue URL** for plugins
 - automatic feed updates and duplicate merging
 - a simpler setup flow for self-hosted Jellyfin users
 

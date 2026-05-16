@@ -7,7 +7,7 @@ const { Worker } = require('worker_threads');
 let regenImages = ['true', '1', 'yes'].includes(String(process.argv[2]).toLowerCase());
 
 const pluginDir = path.join('./plugins', 'images');
-const imageBaseUrl = 'https://test.obelous.dev/plugins/images/';
+const imageBaseUrl = 'https://obelo.us/plugins/images/';
 const fallbackImageUrl = 'https://dl.obelous.dev/public/upr-missing.png';
 const defaultUserAgent = 'Jellyfin-Server/10.0.0.0';
 

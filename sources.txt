@@ -3,6 +3,7 @@
 # !!!    ctrl+shift+p > Delete Duplicate Lines
 # !!!!   ctrl+shift+p > Sort Lines Ascending
 https://app.lizardbyte.dev/jellyfin-plugin-repo/manifest.json
+https://baywolf-studios.github.io/jellyfin-plugin-tvheadend-client/repository.json
 https://geiserx.github.io/smart-covers/manifest.json
 https://geiserx.github.io/whisper-subs/manifest.json
 https://github.com/cxfksword/jellyfin-plugin-danmu/releases/download/manifest/manifest.json

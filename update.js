@@ -5,6 +5,7 @@ const os = require('os');
 const { Worker } = require('worker_threads');
 
 let regenImages = ['true', '1', 'yes'].includes(String(process.argv[2]).toLowerCase());
+let agentArg = String(process.argv[3] || '').trim();
 
 const pluginDir = path.join('./plugins', 'images');
 const imageBaseUrl = 'https://obelo.us/plugins/images/';
@@ -454,7 +455,9 @@ async function main() {
     
     try {
         if(regenImages)await clearImagesFolder();
-        await processList('sources.txt', path.join('./plugins', 'manifest.json'));
+        const safeAgent = agentArg ? agentArg.replace(/[^a-zA-Z0-9._-]/g, '') : 'universal';
+        const outputFile = path.join('./plugins', `manifest.${safeAgent}.json`);
+        await processList('sources.txt', outputFile);
     } finally {
         await terminateWorkerPool();
         await terminateManifestWorkerPool();

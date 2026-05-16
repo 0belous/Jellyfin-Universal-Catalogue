@@ -136,7 +136,7 @@ async function runUpdateForAgent(agentId, regenImages = false) {
 		console.error('Failed to ensure plugin directories before update:', err.message);
 	}
 
-	const args = [path.join(ROOT_DIR, 'update.js'), regenImages ? 'true' : 'false'];
+	const args = [path.join(ROOT_DIR, 'update.js'), regenImages ? 'true' : 'false', agentId];
 	const proc = spawn(process.execPath, args, {
 		cwd: ROOT_DIR,
 		stdio: ['ignore', 'pipe', 'pipe']
@@ -257,9 +257,15 @@ async function handleManifestRequest(req, res, manifestName) {
 	markSeen(agentId);
 	await saveKnownAgents();
 
-	const manifestPath = MANIFEST_FILE;
-	if (await fileExists(manifestPath)) {
-		await serveFile(res, manifestPath);
+	const agentManifestPath = path.join(PLUGINS_DIR, `manifest.${agentId}.json`);
+
+	if (await fileExists(agentManifestPath)) {
+		await serveFile(res, agentManifestPath);
+		return;
+	}
+
+	if (await fileExists(MANIFEST_FILE)) {
+		await serveFile(res, MANIFEST_FILE);
 		return;
 	}
 

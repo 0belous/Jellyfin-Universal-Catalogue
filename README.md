@@ -30,7 +30,7 @@ Managing multiple Jellyfin plugin repositories can get messy fast. This project 
 https://obelo.us/upr
 ```
 
-## How installation works
+## Installation
 1. Ensure that you are always running the latest version of jellyfin.
 2. Open the Jellyfin admin dashboard.
 3. Go to the plugin or catalogue repository settings.
@@ -44,8 +44,6 @@ The update pipeline is driven by `update.js`.
 It does the following:
 - reads source repository lists from `sources.txt`
 - fetches upstream plugin JSON feeds
-- merges duplicate plugins by GUID
-- keeps plugin versions grouped cleanly
 - downloads and refreshes image assets
 - outputs normalized manifests for Jellyfin clients
 
@@ -54,6 +52,7 @@ It does the following:
 .
 ├── README.md           # Project overview and setup instructions
 ├── update.js           # Aggregation and manifest generation script
+├── index.js            # Serves generated manifests and images
 ├── sources.txt         # Upstream plugin feed list
 ├── manifest.json       # Generated main catalogue manifest
 └── images/             # Downloaded plugin artwork/assets

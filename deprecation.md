@@ -21,6 +21,6 @@ You can see the current implementation on the development branch: https://github
 
 ## When
 
-The old GitHub URL has stopped receiving updates effecitive immediately
+The old GitHub URL has stopped receiving updates effective immediately
 
 The new obelo.us URL will be redirected soon

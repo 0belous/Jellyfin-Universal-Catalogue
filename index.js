@@ -230,7 +230,17 @@ async function serveFile(res, filePath) {
 	try {
 		const stat = await fs.stat(filePath);
 		const ext = path.extname(filePath).toLowerCase();
-		const mime = ext === '.json' ? 'application/json; charset=utf-8' : 'application/octet-stream';
+		const mimeTypes = {
+			'.json': 'application/json; charset=utf-8',
+			'.svg': 'image/svg+xml; charset=utf-8',
+			'.png': 'image/png',
+			'.jpg': 'image/jpeg',
+			'.jpeg': 'image/jpeg',
+			'.gif': 'image/gif',
+			'.webp': 'image/webp',
+			'.ico': 'image/x-icon'
+		};
+		const mime = mimeTypes[ext] || 'application/octet-stream';
 		res.writeHead(200, {
 			'Content-Type': mime,
 			'Content-Length': stat.size,

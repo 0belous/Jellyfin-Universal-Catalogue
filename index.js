@@ -299,6 +299,10 @@ async function start() {
 	await loadKnownAgents();
 	await pruneExpiredAgents();
 
+	for (const agentId of knownAgents.keys()) {
+		runUpdateForAgent(agentId, false);
+	}
+
 	setInterval(() => {
 		runHourlyUpdates().catch((error) => {
 			console.error('Hourly update cycle failed:', error.message);

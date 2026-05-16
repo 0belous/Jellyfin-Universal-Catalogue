@@ -206,7 +206,7 @@ async function getSources(sourceFile){
         sources = fileContent.split(/\r?\n/).filter(line => line.trim() !== '' && !line.trim().startsWith('#'));
     } catch (err) {
         console.error(`Error reading ${sourceFile}:`, err.message);
-        return [];
+        return { plugins: [], sourceCount: 0 };
     }
 
     let pluginMap = new Map();
@@ -243,7 +243,10 @@ async function getSources(sourceFile){
         }
     }
     
-    return Array.from(pluginMap.values());
+    return {
+        plugins: Array.from(pluginMap.values()),
+        sourceCount: sources.length
+    };
 }
 
 async function clearImagesFolder() {
@@ -400,17 +403,19 @@ async function writeManifest(manifestJson, outputFile, pluginCount){
 }
 
 async function processList(sourceFile, outputFile) {
-    let plugins = await getSources(sourceFile);
+    const { plugins: fetchedPlugins, sourceCount } = await getSources(sourceFile);
+    let plugins = fetchedPlugins;
     try {
         const safeAgent = userAgent || 'unknown';
         const timestamp = new Date().toISOString();
         const checksum = hashString('upr-' + (safeAgent || 'unknown'));
         const targetAbi = '10.11.0.0';
+        const pluginCount = plugins.length;
         const dummy = {
             guid: crypto.randomUUID ? crypto.randomUUID() : hashString('upr-dummy-' + timestamp),
             name: '! Universal Plugin Repo',
-            description: `You are using Universal Plugin Repo.`,
-            overview: `Jellyfin Plugin Aggregator`,
+            description: `You are using Universal Plugin Repo.\n\nPlugins Aggregated: ${pluginCount}\nNumber of sources: ${sourceCount}`,
+            overview: `Jellyfin Plugin Aggregator\nGenerated: ${timestamp}`,
             owner: 'Obelous',
             category: 'Miscellaneous',
             image: 'upr-main.png',

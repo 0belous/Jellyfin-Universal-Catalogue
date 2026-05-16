@@ -52,7 +52,7 @@ function getManifestFallback(userAgentId) {
 		{
 			guid: uuidv4(),
 			name: 'Jellyfin Universal Catalogue',
-			description: `Your user agent ${safeAgent} has not been seen yet, Please wait a moment and refresh the page.`,
+			description: `Your user agent ${safeAgent} has not been seen yet, Please wait a moment and refresh the plugins page.`,
 			overview: `Please wait for manifest: ${safeAgent}`,
 			owner: 'Obelous',
 			category: 'Miscellaneous',

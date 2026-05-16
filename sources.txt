@@ -49,6 +49,7 @@ https://raw.githubusercontent.com/lostb1t/jellyfin-plugin-collection-import/main
 https://raw.githubusercontent.com/luall0/jellyfin-luall0-plugins/refs/heads/main/manifest.json
 https://raw.githubusercontent.com/MorganKryze/jellyflare/main/manifest.json
 https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.10/manifest.json 
 https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json
 https://raw.githubusercontent.com/NewsGuyTor/LogoSwap/main/manifest.json
 https://raw.githubusercontent.com/nikarh/jellyfin-plugin-authelia/main/manifest.json

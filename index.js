@@ -37,20 +37,13 @@ function normalizeUserAgent(rawUserAgent) {
 
 function getManifestFallback(userAgentId) {
 	const safeAgent = userAgentId || 'unknown';
-	function uuidv4() {
-		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-			const r = (Math.random() * 16) | 0;
-			const v = c === 'x' ? r : (r & 0x3) | 0x8;
-			return v.toString(16);
-		});
-	}
 	const checksum = require('crypto').randomBytes(16).toString('hex');
 	const timestamp = new Date().toISOString();
 	const targetAbi = safeAgent && !safeAgent.endsWith('.0') ? `${safeAgent}.0` : safeAgent;
 
 	return [
 		{
-			guid: uuidv4(),
+			guid: crypto.randomUUID ? crypto.randomUUID() : hashString('upr-dummy-' + timestamp),
 			name: 'Jellyfin Universal Catalogue',
 			description: `Your user agent ${safeAgent} has not been seen yet, Please wait a moment and refresh the plugins page.`,
 			overview: `Please wait for manifest: ${safeAgent}`,

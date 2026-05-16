@@ -414,7 +414,7 @@ async function processList(sourceFile, outputFile) {
         const dummy = {
             guid: crypto.randomUUID ? crypto.randomUUID() : hashString('upr-dummy-' + timestamp),
             name: '! Universal Plugin Repo',
-            description: `You are using Universal Plugin Repo.\n\nPlugins Aggregated: ${pluginCount}\nNumber of sources: ${sourceCount}`,
+            description: `You are using Universal Plugin Repo. Plugins Aggregated: ${pluginCount}, Number of sources: ${sourceCount}. `,
             overview: `Jellyfin Plugin Aggregator\nGenerated: ${timestamp}`,
             owner: 'Obelous',
             category: 'Miscellaneous',

@@ -91,7 +91,7 @@ function hashString(str) {
 
 function createDummyPlugin() {
     const timestamp = new Date().toISOString();
-    const targetAbi = '10.1.0.0';
+    const targetAbi = '10.11.0.0';
     const checksum = crypto.randomBytes(16).toString('hex');
 
     return {

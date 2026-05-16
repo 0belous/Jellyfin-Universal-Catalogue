@@ -2,7 +2,7 @@ name: CI/CD Deploy
 on:
   push:
     branches:
-      - development
+      - main
 
 jobs:
   deploy:
@@ -11,7 +11,7 @@ jobs:
       - name: Pull changes
         run: |
           cd /home/ubuntu/Jellyfin-Universal-Catalogue 
-          git pull origin development
+          git pull origin main
 
       - name: Restart Service
         run: |

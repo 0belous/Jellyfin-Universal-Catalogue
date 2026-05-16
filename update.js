@@ -4,13 +4,12 @@ const crypto = require('crypto');
 const os = require('os');
 const { Worker } = require('worker_threads');
 
-let userAgent = process.argv[2];
-let regenImages = ['true', '1', 'yes'].includes(String(process.argv[3]).toLowerCase());
-const agentDirName = userAgent || 'unknown';
+let regenImages = ['true', '1', 'yes'].includes(String(process.argv[2]).toLowerCase());
 
-const pluginDir = path.join('./plugins', agentDirName);
-const imageBaseUrl = `https://obelo.us/plugins/${encodeURIComponent(agentDirName)}/`;
+const pluginDir = path.join('./plugins', 'images');
+const imageBaseUrl = 'https://test.obelous.dev/plugins/images/';
 const fallbackImageUrl = 'https://dl.obelous.dev/public/upr-missing.png';
+const defaultUserAgent = 'Jellyfin-Server/10.0.0.0';
 
 const WORKER_POOL_SIZE = 4;
 let workerPool = [];
@@ -87,7 +86,7 @@ function executeTask(workerItem, task) {
 	
 	workerItem.worker.on('message', onMessage);
 	workerItem.worker.on('error', onError);
-	workerItem.worker.postMessage({ id: taskId, url: task.url, userAgent });
+	workerItem.worker.postMessage({ id: taskId, url: task.url, userAgent: defaultUserAgent });
 }
 
 async function waitForAllWorkersComplete() {
@@ -264,7 +263,7 @@ async function clearImagesFolder() {
 async function downloadImage(url, filename) {
     console.log(`Downloading image: ${url} as ${filename}`);
     try {
-        const res = await fetch(url, { headers: { 'User-Agent': userAgent } });
+        const res = await fetch(url, { headers: { 'User-Agent': defaultUserAgent } });
         if (!res.ok) throw new Error(`Failed to fetch image: ${res.status}`);
         const buffer = await res.arrayBuffer();
         await fs.writeFile(path.join(pluginDir, filename), Buffer.from(buffer));
@@ -406,9 +405,9 @@ async function processList(sourceFile, outputFile) {
     const { plugins: fetchedPlugins, sourceCount } = await getSources(sourceFile);
     let plugins = fetchedPlugins;
     try {
-        const safeAgent = userAgent || 'unknown';
+        const safeAgent = 'universal';
         const timestamp = new Date().toISOString();
-        const checksum = hashString('upr-' + (safeAgent || 'unknown'));
+        const checksum = hashString('upr-' + safeAgent);
         const targetAbi = '10.11.0.0';
         const pluginCount = plugins.length;
         const dummy = {
@@ -455,7 +454,7 @@ async function main() {
     
     try {
         if(regenImages)await clearImagesFolder();
-        await processList('sources.txt', path.join('./plugins', agentDirName, 'manifest.json'));
+        await processList('sources.txt', path.join('./plugins', 'manifest.json'));
     } finally {
         await terminateWorkerPool();
         await terminateManifestWorkerPool();

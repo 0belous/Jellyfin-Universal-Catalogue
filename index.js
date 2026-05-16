@@ -12,6 +12,7 @@ const HOURLY_MS = 60 * 60 * 1000;
 const ROOT_DIR = __dirname;
 const PLUGINS_DIR = path.resolve(ROOT_DIR, './plugins');
 const IMAGES_DIR = path.join(PLUGINS_DIR, 'images');
+const MANIFEST_FILE = path.join(PLUGINS_DIR, 'manifest.json');
 const KNOWN_AGENTS_FILE = path.join(PLUGINS_DIR, '.known_user_agents.json');
 
 const updateInProgress = new Set();
@@ -84,26 +85,6 @@ async function loadKnownAgents() {
 			console.error('Failed to load known user agents:', error.message);
 		}
 	}
-
-	try {
-		const entries = await fs.readdir(PLUGINS_DIR, { withFileTypes: true });
-		for (const entry of entries) {
-			if (!entry.isDirectory()) continue;
-			if (entry.name === 'images') continue;
-			if (!knownAgents.has(entry.name)) {
-				const fullPath = path.join(PLUGINS_DIR, entry.name);
-				let seenAt = nowIso();
-				try {
-					const stat = await fs.stat(fullPath);
-					seenAt = stat.mtime.toISOString();
-				} catch {
-				}
-				knownAgents.set(entry.name, seenAt);
-			}
-		}
-	} catch (error) {
-		console.error('Failed to scan plugin directories:', error.message);
-	}
 }
 
 async function saveKnownAgents() {
@@ -115,12 +96,7 @@ async function saveKnownAgents() {
 }
 
 async function removeAgentData(agentId) {
-	const agentDir = path.join(PLUGINS_DIR, agentId);
-	try {
-		await fs.rm(agentDir, { recursive: true, force: true });
-	} catch (error) {
-		console.error(`Failed to remove expired plugin directory for ${agentId}:`, error.message);
-	}
+
 }
 
 async function pruneExpiredAgents() {
@@ -155,12 +131,12 @@ async function runUpdateForAgent(agentId, regenImages = false) {
 
 	try {
 		await ensurePluginsDir();
-		try { await fs.mkdir(path.join(PLUGINS_DIR, agentId), { recursive: true }); } catch {}
+		try { await fs.mkdir(IMAGES_DIR, { recursive: true }); } catch {}
 	} catch (err) {
-		console.error('Failed to ensure plugin/images directories before update:', err.message);
+		console.error('Failed to ensure plugin directories before update:', err.message);
 	}
 
-	const args = [path.join(ROOT_DIR, 'update.js'), agentId, regenImages ? 'true' : 'false'];
+	const args = [path.join(ROOT_DIR, 'update.js'), regenImages ? 'true' : 'false'];
 	const proc = spawn(process.execPath, args, {
 		cwd: ROOT_DIR,
 		stdio: ['ignore', 'pipe', 'pipe']
@@ -247,20 +223,16 @@ async function serveFile(res, filePath) {
 	}
 }
 
-async function servePluginAsset(res, reqPath) {
-	const match = reqPath.match(/^\/([^/]+)\/(.+)$/);
-	if (!match) {
+async function servePluginAsset(res, filename) {
+	if (!filename) {
 		res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
 		res.end('Not found');
 		return;
 	}
 
-	const agentId = match[1];
-	const assetPath = match[2];
-	const agentDir = path.resolve(PLUGINS_DIR, agentId);
-	const absolute = path.resolve(agentDir, assetPath);
+	const absolute = path.resolve(IMAGES_DIR, filename);
 
-	if (!absolute.startsWith(agentDir + path.sep) && absolute !== agentDir) {
+	if (!absolute.startsWith(IMAGES_DIR + path.sep)) {
 		res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
 		res.end('Bad request');
 		return;
@@ -285,7 +257,7 @@ async function handleManifestRequest(req, res, manifestName) {
 	markSeen(agentId);
 	await saveKnownAgents();
 
-	const manifestPath = path.join(PLUGINS_DIR, agentId, manifestName);
+	const manifestPath = MANIFEST_FILE;
 	if (await fileExists(manifestPath)) {
 		await serveFile(res, manifestPath);
 		return;
@@ -327,8 +299,9 @@ async function start() {
 			return;
 		}
 
-		if (/^\/[^/]+\/.+/.test(routePath)) {
-			servePluginAsset(res, routePath).catch((error) => {
+		const imageMatch = routePath.match(/^\/images\/(.+\.(png|jpg|jpeg|gif|webp|ico|svg))$/i);
+		if (imageMatch) {
+			servePluginAsset(res, imageMatch[1]).catch((error) => {
 				console.error('Failed to serve plugin asset:', error.message);
 				res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
 				res.end('Internal server error');

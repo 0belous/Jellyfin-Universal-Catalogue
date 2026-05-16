@@ -13,5 +13,8 @@
   "license": "ISC",
   "author": "",
   "type": "commonjs",
-  "main": "update.js"
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  }
 }

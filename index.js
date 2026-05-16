@@ -268,18 +268,6 @@ async function handleManifestRequest(req, res, manifestName) {
 }
 
 async function start() {
-	await loadKnownAgents();
-	await pruneExpiredAgents();
-
-	for (const agentId of knownAgents.keys()) {
-		runUpdateForAgent(agentId, false);
-	}
-
-	setInterval(() => {
-		runHourlyUpdates().catch((error) => {
-			console.error('Hourly update cycle failed:', error.message);
-		});
-	}, HOURLY_MS);
 
 	const server = http.createServer((req, res) => {
 		const reqPath = new URL(req.url, `http://${req.headers.host || 'localhost'}`).pathname;
@@ -316,6 +304,25 @@ async function start() {
 		console.log(`Universal catalogue server listening on http://${HOST}:${PORT}`);
 		console.log(`Serving plugin manifests from ${PLUGINS_DIR}`);
 	});
+
+	setInterval(() => {
+		runHourlyUpdates().catch((error) => {
+			console.error('Hourly update cycle failed:', error.message);
+		});
+	}, HOURLY_MS);
+
+	(async () => {
+		try {
+			await loadKnownAgents();
+			await pruneExpiredAgents();
+
+			for (const agentId of knownAgents.keys()) {
+				runUpdateForAgent(agentId, false);
+			}
+		} catch (error) {
+			console.error('Startup background tasks failed:', error.message);
+		}
+	})();
 }
 
 start().catch((error) => {

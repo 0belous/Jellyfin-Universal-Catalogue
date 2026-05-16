@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="NotifySync">
+  <defs>
+    <linearGradient id="ns-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </linearGradient>
+    <radialGradient id="ns-glow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#00a4dc" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#00a4dc" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="100" fill="url(#ns-bg)"/>
+  <rect width="512" height="512" rx="100" fill="url(#ns-glow)"/>
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#00a4dc" stroke-width="2" opacity="0.18"/>
+
+  <!-- Bell (Material "notifications" path, centered) -->
+  <g transform="translate(96, 96) scale(13.3)">
+    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" fill="#ffffff"/>
+  </g>
+</svg>

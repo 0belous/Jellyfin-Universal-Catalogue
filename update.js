@@ -9,7 +9,7 @@ let regenImages = ['true', '1', 'yes'].includes(String(process.argv[3]).toLowerC
 const agentDirName = userAgent || 'unknown';
 
 const pluginDir = path.join('./plugins', agentDirName);
-const imageBaseUrl = `https://test.obelous.dev/plugins/${encodeURIComponent(agentDirName)}/`;
+const imageBaseUrl = `https://obelo.us/plugins/${encodeURIComponent(agentDirName)}/`;
 const fallbackImageUrl = 'https://dl.obelous.dev/public/upr-missing.png';
 
 const WORKER_POOL_SIZE = 4;
@@ -210,12 +210,8 @@ async function getSources(sourceFile){
     }
 
     let pluginMap = new Map();
-
-    // Fetch all sources in parallel using worker pool
     const fetchPromises = sources.map(url => fetchWithWorker(url));
     const results = await Promise.allSettled(fetchPromises);
-    
-    // Wait for all workers to complete
     await waitForAllWorkersComplete();
 
     for (let i = 0; i < results.length; i++) {
@@ -449,7 +445,6 @@ async function main() {
     try{await fs.mkdir('./plugins/')}catch(err){}
     try{await fs.mkdir(pluginDir, { recursive: true })}catch(err){}
     
-    // Initialize worker pool
     initializeWorkerPool();
     initializeManifestWorkerPool();
     
@@ -457,7 +452,6 @@ async function main() {
         if(regenImages)await clearImagesFolder();
         await processList('sources.txt', path.join('./plugins', agentDirName, 'manifest.json'));
     } finally {
-        // Terminate worker pool
         await terminateWorkerPool();
         await terminateManifestWorkerPool();
     }

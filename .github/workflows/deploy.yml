@@ -1,0 +1,18 @@
+name: CI/CD Deploy
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Pull changes
+        run: |
+          cd /home/ubuntu/Jellyfin-Universal-Catalogue 
+          git pull origin main
+
+      - name: Restart Service
+        run: |
+          sudo systemctl restart upr.service
